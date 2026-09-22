@@ -1,9 +1,11 @@
-import { BookOpen, Calendar, Home, Settings } from "lucide-react";
+import { BookOpen, Home } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
+import { currentUser } from "@/lib/mock-data";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -11,13 +13,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 
 const items = [
   { title: "หน้าแรก", url: "/", icon: Home },
   { title: "ลงทะเบียนเรียน", url: "/enrollment", icon: BookOpen },
-  { title: "ตารางเรียน", url: "/schedule", icon: Calendar },
-  { title: "ตั้งค่า", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -26,7 +27,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="px-2 py-1 text-sm font-semibold">CPE & ISNE</div>
+        <div className="px-2 py-1 text-sm font-bold">CPE & ISNE</div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -49,6 +50,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarSeparator />
+      <SidebarFooter>
+        <div className="flex items-center gap-2 rounded-md p-2">
+          <img
+            src={currentUser.avatar}
+            alt={currentUser.nickname}
+            className="size-8 rounded-full object-cover"
+          />
+          <div className="min-w-0 group-data-[collapsible=icon]:hidden">
+            <p className="truncate text-sm font-medium">{currentUser.nickname}</p>
+            <p className="truncate text-xs text-sidebar-foreground/70">
+              {currentUser.role}
+            </p>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
